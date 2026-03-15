@@ -13,7 +13,7 @@ class CollaboratorAvailability extends Model
 
     public function shift()
     {
-        return $this->belongsTo(CollaboratorShift::class, 'collaborator_shift_id');
+        return $this->belongsTo(CollaborationShift::class, 'collaborator_shift_id');
     }
 
 }
