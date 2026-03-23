@@ -8,11 +8,20 @@ use Illuminate\Http\JsonResponse;
 class EditionController extends Controller
 {
     /**
-     * GET /editions
+     * Retrieve all available editions.
      *
-     * Returns all editions ordered by year descending.
-     * The frontend uses this to let the user (or the app) pick an edition_id
-     * before submitting any subscription form.
+     * Returns all non-removed editions ordered by year in descending order.
+     * The response contains only the minimal fields required by the client
+     * to identify and select an edition.
+     *
+     * Typical usage:
+     * - Populate edition selectors (dropdowns, filters)
+     * - Resolve edition_id before submitting forms
+     *
+     * Response structure:
+     * - data: array of editions (id, year, active)
+     *
+     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
@@ -26,10 +35,20 @@ class EditionController extends Controller
     }
 
     /**
-     * GET /editions/active
+     * Retrieve the currently active edition.
      *
-     * Convenience endpoint: returns the single currently active edition.
-     * Returns 404 if none is marked active.
+     * Returns the single edition marked as active. This endpoint is a
+     * convenience shortcut to avoid clients needing to filter the full list.
+     *
+     * Behavior:
+     * - Returns the active edition when found
+     * - Returns 404 when no active edition exists
+     *
+     * Response structure:
+     * - data: edition object (id, year, active)
+     * - message: error description when not found
+     *
+     * @return JsonResponse
      */
     public function active(): JsonResponse
     {
@@ -37,7 +56,7 @@ class EditionController extends Controller
             ->whereNull('removed_at')
             ->first(['id', 'year', 'active']);
 
-        if (! $edition) {
+        if (!$edition) {
             return response()->json([
                 'message' => 'Nenhuma edição ativa encontrada.',
             ], 404);

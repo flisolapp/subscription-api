@@ -1,16 +1,11 @@
 <?php
 
-use App\Http\Controllers\CertificatesDownloadController;
-use App\Http\Controllers\CertificatesReleaseController;
-use App\Http\Controllers\CertificatesSearchController;
 use App\Http\Controllers\EditionController;
 use App\Http\Controllers\Subscription\SubscriptionCollaboratorController;
 use App\Http\Controllers\Subscription\SubscriptionParticipantController;
 use App\Http\Controllers\Subscription\SubscriptionSpeakerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-// ── Auth (existing) ─────────────────────────────────────────────────────────
 
 Route::get('/user', function (Request $request) {
     return $request->user();
