@@ -175,6 +175,17 @@ GET /docs/api
 php artisan test
 ```
 
+## Production adjustments
+
+The following PHP configuration variables must be set at minimum values to ensure proper file upload handling:
+
+| Directive           | Recommended Value |
+|---------------------|-------------------|
+| file_uploads        | On                |
+| upload_max_filesize | 20M               |
+| post_max_size       | 25M               |
+| max_input_time      | 120               |
+
 ---
 
 ## About Laravel
